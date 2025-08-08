@@ -4,7 +4,7 @@ FROM rust:1.83 as builder
 WORKDIR /app
 
 # Copy workspace files
-COPY Cargo.toml Cargo.lock ./
+COPY Cargo.toml  ./
 COPY backend/Cargo.toml ./backend/
 COPY backend/src ./backend/src/
 COPY frontend/Cargo.toml ./frontend/
