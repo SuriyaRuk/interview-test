@@ -1,0 +1,51 @@
+# Rust
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Data files (but keep directory structure)
+/data/*.jsonl
+/data/*.index
+/data/.lock
+backend/data
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# Build artifacts
+/frontend/dist/
+/frontend/pkg/
+/backend/target/
+
+# WebAssembly
+*.wasm
+
+# Node modules (if using any JS tooling)
+node_modules/
+
+# Docker
+.dockerignore
+
+# Temporary files
+*.tmp
+*.temp

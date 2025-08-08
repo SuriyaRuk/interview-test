@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semantic Search Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script type="module">
+        async function run() {
+            const appElement = document.getElementById('app');
+
+            try {
+                console.log('🚀 Starting Semantic Search Platform initialization...');
+
+                // Import the WebAssembly module
+                console.log('📦 Importing WebAssembly module...');
+                const module = await import('./pkg/semantic_search_frontend.js');
+                console.log('✅ Module imported successfully');
+                console.log('Available exports:', Object.keys(module));
+
+                // Initialize the WebAssembly module
+                console.log('⚡ Initializing WebAssembly module...');
+                await module.default();
+                console.log('✅ WebAssembly module initialized successfully');
+
+                // Check if main function exists
+                if (typeof module.main !== 'function') {
+                    throw new Error('Main function not found in WebAssembly module exports');
+                }
+
+                // Verify app element exists
+                if (!appElement) {
+                    throw new Error('App element with id "app" not found in DOM');
+                }
+
+                // Start the application
+                console.log('🎯 Starting application...');
+                module.main();
+                console.log('🎉 Application started successfully!');
+
+            } catch (error) {
+                console.error('❌ Failed to initialize Semantic Search Platform:', error);
+
+                // Display user-friendly error message
+                appElement.innerHTML = `
+                    <div style="
+                        max-width: 600px; 
+                        margin: 50px auto; 
+                        padding: 30px; 
+                        background: #fee; 
+                        border: 2px solid #fcc; 
+                        border-radius: 8px;
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    ">
+                        <h2 style="color: #c33; margin-top: 0;">⚠️ Application Failed to Load</h2>
+                        <p style="color: #666; line-height: 1.5;">
+                            The Semantic Search Platform encountered an error during initialization. 
+                            This might be due to:
+                        </p>
+                        <ul style="color: #666; line-height: 1.5;">
+                            <li>WebAssembly module compilation issues</li>
+                            <li>Missing or corrupted application files</li>
+                            <li>Browser compatibility problems</li>
+                            <li>Network connectivity issues</li>
+                        </ul>
+                        <details style="margin-top: 20px;">
+                            <summary style="cursor: pointer; color: #c33; font-weight: bold;">
+                                🔍 Technical Details (Click to expand)
+                            </summary>
+                            <pre style="
+                                background: #f5f5f5; 
+                                padding: 15px; 
+                                border-radius: 4px; 
+                                overflow-x: auto; 
+                                margin-top: 10px;
+                                font-size: 12px;
+                                color: #333;
+                            ">${error.message}\n\nStack trace:\n${error.stack || 'No stack trace available'}</pre>
+                        </details>
+                        <p style="color: #666; margin-bottom: 0; font-size: 14px;">
+                            💡 Try refreshing the page or check the browser console for more details.
+                        </p>
+                    </div>
+                `;
+
+                // Also log additional debugging information
+                console.group('🔧 Debugging Information');
+                console.log('User Agent:', navigator.userAgent);
+                console.log('WebAssembly Support:', typeof WebAssembly !== 'undefined');
+                console.log('Module Support:', 'import' in window || typeof importScripts !== 'undefined');
+                console.log('Current URL:', window.location.href);
+                console.log('App Element:', appElement);
+                console.groupEnd();
+            }
+        }
+
+        // Start the application
+        run().catch(error => {
+            console.error('💥 Critical error in application startup:', error);
+            document.getElementById('app').innerHTML = `
+                <div style="text-align: center; padding: 50px; color: #c33; font-family: monospace;">
+                    <h1>💥 Critical Error</h1>
+                    <p>Failed to start the application initialization process.</p>
+                    <p>Check the browser console for details.</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+
+</html>
